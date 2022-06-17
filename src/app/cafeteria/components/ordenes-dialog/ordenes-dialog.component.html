@@ -1,0 +1,124 @@
+<!-- Modal content -->
+
+<div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+  <div class="">
+    <div class="p-6 text-center">
+      <form >
+        <h2 mat-dialog-title>{{ data.subtitle }}</h2>
+        <div *ngFor="let item of data.content">
+          <div *ngIf="item.element === 'select'" class="flex flex-col">
+            <mat-form-field>
+              <label
+                for="{{ item.text }}"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                >{{ item.text }}</label
+              >
+              <mat-select [(ngModel)]="item.value" name="{{ item.name}}">
+                <mat-option
+                  *ngFor="let option of item.options"
+                  [value]="option.value"
+                  >{{ option.text }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div
+            *ngIf="item.element === 'input' && item.type !== 'file'"
+            class="flex flex-col"
+          >
+            <label
+              for="{{ item.text }}"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+              >{{ item.text }}</label
+            >
+            <input
+              type="{{ item.type }}"
+              [(ngModel)]="item.value"
+              name="{{ item.name}}"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              [placeholder]="item.placeholder"
+            />
+          </div>
+          <div
+            *ngIf="item.element === 'input' && item.type === 'file'"
+            class="flex flex-col"
+          >
+            <label
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              for="user_avatar"
+              >{{ item.text }}</label
+            >
+            <input
+              type="{{ item.type }}"
+              [(ngModel)]="item.value"
+              name="{{ item.name}}"
+              class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              type="file"
+              [placeholder]="item.placeholder"
+            />
+          </div>
+          <div *ngIf="item.element === 'textarea'" class="flex flex-col">
+            <mat-form-field>
+              <label
+                for="{{ item.text }}"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                >{{ item.text }}</label
+              >
+              <textarea
+                [(ngModel)]="item.value"
+                name="{{ item.name}}"
+                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                rows="3"
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div *ngIf="item.element === 'checkbox'" class="flex flex-col">
+            <label
+              for="{{ item.text }}"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+              >{{ item.text }}</label
+            >
+
+            <div overflow="hidden" class="overflow-y-auto">
+              <ul class="grid grid-cols-4 gap-4">
+                <li
+                  class="flex items-center mr-8"
+                  *ngFor="let option of item.options"
+                >
+                  <mat-checkbox
+                    [(ngModel)]="option.value"
+                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    name="{{ item.name}}" id="{{option.id}}"
+                    >{{ option.text }}</mat-checkbox
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600"
+        >
+          <mat-dialog-actions>
+            <button
+              mat-button
+              mat-dialog-close
+              class="{{ data.buttons[0].color }}-600"
+            >
+              {{ data.buttons[0].text }}
+            </button>
+            <button
+              mat-button
+              [mat-dialog-close]="data.content"
+              class="{{ data.buttons[1].color }}-600"
+              cdkFocusInitial
+            >
+              {{ data.buttons[1].text }}
+            </button>
+          </mat-dialog-actions>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
